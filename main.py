@@ -1,6 +1,7 @@
 spieler1 = "X"
 spieler2 = "O"
-currentTurn = 1
+currentTurn = "1"
+gameRuns = False
 brett = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
 
 def printBrett():
@@ -11,20 +12,36 @@ def printBrett():
 printBrett()
 
 def isFree(reihe, spalte):
-    if brett[reihe][spalte] == " ":
-        return True
-    else:
+    if brett[reihe][spalte] in ["X", "O"]:
         return False
+    else:
+        return True
 
 def whichSpieler():
-    return spieler1 if currentTurn == 1 else spieler2
+    return spieler1 if currentTurn == "1" else spieler2
 
 def convNumToField(num):
-    return num;
+    if num == 1 :
+        return [0, 0]
+    elif num == 2:
+        return [0, 1]
+    elif num == 3:
+        return [0, 2]
+    elif num == 4:
+        return [1, 0]
+    elif num == 5:
+        return [1, 1]
+    elif num == 6:
+        return [1, 2]
+    elif num == 7:
+        return [2, 0]
+    elif num == 8:
+        return [2, 1]
+    else:
+        return [2, 2]
 
 def place(reihe, spalte):
-    if isFree(reihe, spalte):
-        brett[reihe][spalte] = whichSpieler()
+    brett[reihe][spalte] = whichSpieler()
 
 def checkWin():
     isRow = False
@@ -41,19 +58,35 @@ def checkWin():
     elif brett[0][2] == brett[1][1] == brett[2][0] == whichSpieler():
         isDiagonal = True
 
-    if isRow and isLine and isDiagonal:
+    if isRow or isLine or isDiagonal:
         return True
     else:
         return False
 
-def checkDraw():
-    isDraw = True
-    for i in range(3):
-        for j in range(3):
-            if type(brett[i][j]) == int:
-                isDraw = False
-    return isDraw
-
 def startGame():
+    global currentTurn
+    gameRuns = True
     print("Spiel geht los!\n")
     printBrett()
+    while(gameRuns):
+        chosenField = int(input("Spieler " + currentTurn + ", wähle dein Feld: "))
+        while(True):
+            chosenRow = (convNumToField(chosenField))[0]
+            chosenLine = convNumToField(chosenField)[1]
+            if not isFree(chosenRow, chosenLine):
+                chosenField = int(input("Ein freies Feld bitte: "))
+            else:
+                place(chosenRow, chosenLine)
+                printBrett()
+                break
+        if checkWin():
+            print("Spieler " + currentTurn + " hat gewonnen!")
+            gameRuns = False
+        else:
+            currentTurn = "2" if currentTurn == "1" else "1"
+
+while True:
+    brett = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
+    startGame()
+    print("\n" * 8)
+
