@@ -21,24 +21,9 @@ def whichSpieler():
     return spieler1 if currentTurn == "1" else spieler2
 
 def convNumToField(num):
-    if num == 1 :
-        return [0, 0]
-    elif num == 2:
-        return [0, 1]
-    elif num == 3:
-        return [0, 2]
-    elif num == 4:
-        return [1, 0]
-    elif num == 5:
-        return [1, 1]
-    elif num == 6:
-        return [1, 2]
-    elif num == 7:
-        return [2, 0]
-    elif num == 8:
-        return [2, 1]
-    else:
-        return [2, 2]
+    row = int((num - 1) / 3)
+    line = (num - 1) % 3
+    return [row, line]
 
 def place(reihe, spalte):
     brett[reihe][spalte] = whichSpieler()
@@ -86,6 +71,7 @@ def startGame():
             currentTurn = "2" if currentTurn == "1" else "1"
 
 while True:
+    input("Zum starten Enter drücken")
     brett = [["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]
     startGame()
     print("\n" * 8)
