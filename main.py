@@ -10,7 +10,7 @@ class tiktaktoe:
 
     def get_input(self):
         inp = input("chose a field: ")
-        while (not inp.isdigit()) or self.board[int(inp)] is not int(inp) or (not (0 <= int(inp) < 9)):
+        while (not inp.isdigit()) or (not (0 <= int(inp) < 9)) or self.board[int(inp)] is not int(inp):
             inp = input("chose a correct field")
         return int(inp)
 
