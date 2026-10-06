@@ -1,9 +1,11 @@
 class tiktaktoe:
-    board = list(range(9))
-    player1 = "X"
-    player2 = "O"
-    cur_player = 2
-    game_runs = False
+
+    def __init__(self):
+        self.board = list(range(9))
+        self.player1 = "X"
+        self.player2 = "O"
+        self.cur_player = 2
+        self.game_runs = False
 
     def change_cur(self):
         self.cur_player = 2 if self.cur_player == 1 else 1
