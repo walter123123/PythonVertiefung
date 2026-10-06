@@ -12,7 +12,7 @@ class tiktaktoe:
 
     def get_input(self):
         inp = input("chose a field: ")
-        while (not inp.isdigit()) or (not (0 <= int(inp) < 9)) or self.board[int(inp)] is not int(inp):
+        while (not inp.isdigit()) or (not (0 <= int(inp) < 9)) or self.board[int(inp)] != int(inp):
             inp = input("chose a correct field")
         return int(inp)
 
@@ -39,6 +39,7 @@ class tiktaktoe:
                 self.game_runs = False
         if self.board[0] == self.board[4] == self.board[8] or self.board[2] == self.board[4] == self.board[6]:
             print("player" + str(self.cur_player) + " won")
+            self.game_runs = False
 
     def is_draw(self):
         for field in self.board:
